@@ -120,7 +120,7 @@
 
         term.open(document.getElementById('terminal'));
         //在页面上显示连接中...
-        term.write('Connecting...');
+        term.writeln('Connecting...');
 
         term.onData(function (key) {
             var order = {
@@ -151,8 +151,30 @@
             onData: function (data) {
                 //收到数据时回调
                 term.write(data);
+            },
+            onReconnect: function(times) {
+                //重连回调
+                term.writeln(ordinal_suffix_of(times)+" reconnecting....");
+                term.writeln("");
+            },
+            onOverReconnect: function(times) {
+                alert("Reconnection failed more than"+times+"times.");
             }
         });
+        function ordinal_suffix_of(i) {
+            var j = i % 10,
+                k = i % 100;
+            if (j == 1 && k != 11) {
+                return i + "st";
+            }
+            if (j == 2 && k != 12) {
+                return i + "nd";
+            }
+            if (j == 3 && k != 13) {
+                return i + "rd";
+            }
+            return i + "th";
+        }
     }
 </script>
 </body>

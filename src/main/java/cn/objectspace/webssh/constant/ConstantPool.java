@@ -18,4 +18,8 @@ public class ConstantPool {
      * 发送指令：命令
      */
     public static final String WEBSSH_OPERATE_COMMAND = "command";
+    /**
+     * 发送指令：心跳
+     */
+    public static final String WEBSSH_OPERATE_HEARTBEAT = "heartbeat";
 }

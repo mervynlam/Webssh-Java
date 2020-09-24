@@ -90,7 +90,8 @@ public class WebSSHServiceImpl implements WebSSHService {
                             //发送错误信息
                             sendMessage(session, ("ERROR : "+e.getMessage()).getBytes());
                         } catch (IOException ex) {
-                            ex.printStackTrace();
+                            logger.error("消息发送失败");
+                            logger.error("异常信息:{}", ex.getMessage());
                         }
                         close(session);
                     }
@@ -111,9 +112,23 @@ public class WebSSHServiceImpl implements WebSSHService {
                         //发送错误信息
                         sendMessage(session, ("ERROR : "+e.getMessage()).getBytes());
                     } catch (IOException ex) {
-                        ex.printStackTrace();
+                        logger.error("消息发送失败");
+                        logger.error("异常信息:{}", ex.getMessage());
                     }
                     close(session);
+                }
+            }
+        } else if (ConstantPool.WEBSSH_OPERATE_HEARTBEAT.equals(webSSHData.getOperate())) {
+            //检查心跳
+            SSHConnectInfo sshConnectInfo = (SSHConnectInfo) sshMap.get(userId);
+            if (sshConnectInfo != null) {
+                try {
+                    //处于连接状态则发送健康数据，不能为空，空则断开连接。
+                    if (sshConnectInfo.getChannel().isConnected())
+                        sendMessage(session, "Heartbeat healthy".getBytes());
+                } catch (IOException e) {
+                    logger.error("消息发送失败");
+                    logger.error("异常信息:{}", e.getMessage());
                 }
             }
         } else {
