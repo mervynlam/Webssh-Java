@@ -1,8 +1,12 @@
 基于[NoCortY](https://github.com/NoCortY)的项目[WebSSH](https://github.com/NoCortY/WebSSH)修改。
 1. xterm版本升至4.X
 2. terminal自适应宽高
+3. 心跳检查
+4. 断开后自动重新连接
 
-参考资料：[xterm.js + vue + websocket实现终端功能（xterm 3.x+xterm 4.x）](https://blog.csdn.net/weixin_38318244/article/details/103908129)
+参考资料：  
+[xterm.js + vue + websocket实现终端功能（xterm 3.x+xterm 4.x）](https://blog.csdn.net/weixin_38318244/article/details/103908129)  
+[理解WebSocket心跳及重连机制（五）](https://www.cnblogs.com/tugenhua0707/p/8648044.html)
 
 ## 2020-3-13
 
