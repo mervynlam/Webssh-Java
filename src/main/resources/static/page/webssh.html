@@ -81,11 +81,13 @@
                 if (resizeFlag) {
                     var mousePointX = e.pageX - 10;
                     var mousePointY = e.pageY - 10;
-                    if (mousePointX < $(window).width() && mousePointX > minWidth && mousePointY < $(window).height()) {
+                    if (mousePointX < $(window).width() && mousePointX > minWidth) {
                         $("#outerDiv").width(mousePointX);
+                        $("#dragDiv").css("left", mousePointX + 5);
+                    }
+                    if (mousePointY < $(window).height()) {
                         $("#outerDiv").height(mousePointY);
                         $("#dragDiv").css("top", mousePointY + 5);
-                        $("#dragDiv").css("left", mousePointX + 5);
                     }
                 }
                 resizeTerminal();
@@ -158,7 +160,7 @@
                 term.writeln("");
             },
             onOverReconnect: function(times) {
-                alert("Reconnection failed more than"+times+"times.");
+                alert("Reconnection failed more than "+times+" times.");
             }
         });
         function ordinal_suffix_of(i) {
