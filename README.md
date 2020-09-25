@@ -4,6 +4,21 @@
 3. 心跳检查
 4. 断开后自动重新连接
 
+**效果**
+
+自适应宽高
+
+![autoFit](https://raw.githubusercontent.com/mervynlam/Pictures/master/20200925100444.gif)
+
+心跳检查
+
+![heartbeat](https://raw.githubusercontent.com/mervynlam/Pictures/master/20200925101005.gif)
+
+断开自动重连
+
+![reconnect](https://raw.githubusercontent.com/mervynlam/Pictures/master/20200925101148.gif)
+
+
 参考资料：  
 [xterm.js + vue + websocket实现终端功能（xterm 3.x+xterm 4.x）](https://blog.csdn.net/weixin_38318244/article/details/103908129)  
 [理解WebSocket心跳及重连机制（五）](https://www.cnblogs.com/tugenhua0707/p/8648044.html)
