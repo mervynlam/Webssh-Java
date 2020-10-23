@@ -29,7 +29,7 @@ WSSHClient.prototype.connect = function (options) {
     this._connection.onopen = function () {
         options.onConnect();
         //开始连接，启动心跳检查
-        heartCheck.start();
+        // heartCheck.start();
     };
 
     this._connection.onmessage = function (evt) {
