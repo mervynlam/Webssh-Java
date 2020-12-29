@@ -83,6 +83,9 @@ public class WebSSHServiceImpl implements WebSSHService {
                 public void run() {
                     try {
                         connectToSSH(sshConnectInfo, finalWebSSHData, session);
+                        if (sshConnectInfo.getChannel().isClosed()) {
+                            close(session);
+                        }
                     } catch (JSchException | IOException e) {
                         logger.error("webssh连接异常");
                         logger.error("异常信息:{}", e.getMessage());
@@ -103,8 +106,13 @@ public class WebSSHServiceImpl implements WebSSHService {
             if (sshConnectInfo != null) {
                 try {
                     ChannelShell channel = (ChannelShell) sshConnectInfo.getChannel();
-                    channel.setPtySize(webSSHData.getCols(),webSSHData.getRows(),webSSHData.getWidth(),webSSHData.getHeight());
-                    transToSSH(channel, command);
+                    if (channel != null) {
+                        channel.setPtySize(webSSHData.getCols(),webSSHData.getRows(),webSSHData.getWidth(),webSSHData.getHeight());
+                        transToSSH(channel, command);
+                        if (channel.isClosed()) {
+                            close(session);
+                        }
+                    }
                 } catch (IOException e) {
                     logger.error("webssh连接异常");
                     logger.error("异常信息:{}", e.getMessage());

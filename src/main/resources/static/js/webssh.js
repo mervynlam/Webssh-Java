@@ -42,7 +42,7 @@ WSSHClient.prototype.connect = function (options) {
             reconnectTimes = 0;
         }
         //收到消息，重置心跳检查
-        heartCheck.start();
+        // heartCheck.start();
     };
 
 
@@ -96,11 +96,13 @@ var heartCheck = {
 var lockReconnect = false;//重连锁，避免重复连接
 var reconnectTimes = 0;
 var maxReconnectTimes = 6;
+var resetReconnectTimeout;
 function reconnect(options) {
     if (lockReconnect)
         return;
 
     // console.log("重新连接");
+    clearTimeout(resetReconnectTimeout);
 
     //超过次数不重启
     if (reconnectTimes >= maxReconnectTimes) {
@@ -114,4 +116,9 @@ function reconnect(options) {
         client.connect(options);
         lockReconnect = false;
     }, 500);
+
+    //3分钟没重连，设为0次
+    resetReconnectTimeout = setTimeout(function() {
+        reconnectTimes=0;
+    }, 3*60*1000);
 }
